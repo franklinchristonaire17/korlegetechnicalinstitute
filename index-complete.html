@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KORLEGE TECHNICAL INSTITUTE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 25px;
+            background-color: #555;
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            display: none;
+        }
+
+        .toggle-switch span {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 19px;
+            height: 19px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle-switch input:checked+span {
+            left: 28px;
+        }
+
+        .announcement-sticker {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            border-radius: 5px;
+            animation: slide 0.5s ease;
+        }
+
+        @keyframes slide {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .search-bar {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            max-width: 600px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #2980b9;
+        }
+
+        .container {
+            width: 100%;
+            background-color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background-color: #2c3e50;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background-color: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .content {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 40px;
+            margin: 30px 0;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        section#home {
+            border-left-color: #3498db;
+        }
+
+        section#about {
+            border-left-color: #2ecc71;
+        }
+
+        section#courses {
+            border-left-color: #e74c3c;
+        }
+
+        section#timetable {
+            border-left-color: #9b59b6;
+        }
+
+        section#calendar {
+            border-left-color: #f39c12;
+        }
+
+        section#contact {
+            border-left-color: #1abc9c;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin: 20px 0 15px 0;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .course-card {
+            background-color: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .course-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .timetable-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .timetable-btn {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timetable-btn:hover,
+        .timetable-btn.active {
+            background-color: #2980b9;
+        }
+
+        .timetable-grid {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .timetable-item {
+            background-color: white;
+            padding: 15px;
+            border-left: 4px solid #9b59b6;
+            border-radius: 4px;
+        }
+
+        .timetable-time {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .timetable-course {
+            color: #e74c3c;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .timetable-room {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .calendar-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day.current-month {
+            background-color: #ecf0f1;
+            font-weight: bold;
+        }
+
+        .calendar-day.other-month {
+            color: #bdc3c7;
+        }
+
+        .calendar-day.today {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendar-day:hover {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #2c3e50;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            display: none;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide.active {
+            display: flex;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: #2c3e50;
+        }
+
+        .carousel-btn {
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            color: white;
+            margin: 5px 0;
+        }
+
+        .feature {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+            }
+
+            nav {
+                gap: 5px;
+            }
+
+            nav a {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .timetable-buttons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header with Dark Mode Toggle -->
+    <div class="header">
+        <div class="header-content">
+            <h1>KORLEGE TECHNICAL INSTITUTE</h1>
+            <p>Empowering Future Technology Leaders</p>
+        </div>
+        <div class="dark-mode-toggle">
+            <span>🌙</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Announcement Sticker -->
+    <div id="announcementSticker" class="announcement-sticker">
+        📢 Welcome to KTI
+    </div>
+
+    <!-- Navigation -->
+    <div class="container">
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#courses">Courses</a>
+            <a href="#timetable">Timetable</a>
+            <a href="#calendar">Calendar</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="content">
+            <!-- HOME SECTION -->
+            <section id="home">
+                <h2>Welcome to Korlege Technical Institute</h2>
+                <p>Korlege Technical Institute (KTI) is a premier educational institution dedicated to providing
+                    world-class technical education and vocational training.</p>
+
+                <h3>Why Choose KTI?</h3>
+                <div class="feature">
+                    <div class="feature-icon">🎓</div>
+                    <div class="feature-content">
+                        <h4>Expert Faculty</h4>
+                        <p>Learn from experienced professionals with industry expertise.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-content">
+                        <h4>State-of-the-Art Facilities</h4>
+                        <p>Access modern laboratories and hands-on training environments.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">💼</div>
+                    <div class="feature-content">
+                        <h4>Career Support</h4>
+                        <p>Get job placement assistance and career counseling.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about">
+                <h2>About Korlege Technical Institute</h2>
+                <p>KTI is a leading educational institution dedicated to providing world-class technical education and
+                    vocational training.</p>
+
+                <h3>Our Mission</h3>
+                <p>To empower students with cutting-edge technical skills and professional expertise for successful
+                    careers.</p>
+
+                <h3>Our Vision</h3>
+                <p>To be a globally recognized institution developing highly skilled technical professionals.</p>
+            </section>
+
+            <!-- COURSES SECTION -->
+            <section id="courses">
+                <h2>Our Courses</h2>
+
+                <!-- Search Functionality -->
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="🔍 Search courses...">
+                </div>
+
+                <div class="course-card">
+                    <h4>🏗️ Building and Construction Technology</h4>
+                    <p><strong>Duration:</strong> 12 months</p>
+                    <p>Learn construction principles, building design, and project execution.</p>
+                </div>
+
+                <div class="course-card">
+                    <h4>⚡ Electrical Engineering Technology</h4>
+                    <p><strong>Duration:</strong> 12 months</p>
+                    <p>Comprehensive training in electrical systems and power distribution.</p>
+                </div>
+
+                <div class="course-card">
+                    <h4>👗 Fashion and Design Technology</h4>
+                    <p><strong>Duration:</strong> 10 months</p>
+                    <p>Master fashion design and textile science with CAD software.</p>
+                </div>
+
+                <div class="course-card">
+                    <h4>🍽️ Catering and Hospitality Management</h4>
+                    <p><strong>Duration:</strong> 10 months</p>
+                    <p>Professional food preparation and hospitality service excellence.</p>
+                </div>
+
+                <div class="course-card">
+                    <h4>🔧 Welding and Fabrication Technology</h4>
+                    <p><strong>Duration:</strong> 12 months</p>
+                    <p>Master welding techniques and metal fabrication.</p>
+                </div>
+
+                <div class="course-card">
+                    <h4>⚙️ Mechanical Engineering Technology</h4>
+                    <p><strong>Duration:</strong> 12 months</p>
+                    <p>Mechanical design, CAD software, and manufacturing processes.</p>
+                </div>
+
+                <div class="course-card">
+                    <h4>🚗 Automobile Engineering Technology</h4>
+                    <p><strong>Duration:</strong> 12 months</p>
+                    <p>Automotive systems, engine mechanics, and diagnostic techniques.</p>
+                </div>
+            </section>
+
+            <!-- TIMETABLE SECTION -->
+            <section id="timetable">
+                <h2>Class Timetable</h2>
+                <p>Check the weekly schedule for all courses</p>
+
+                <div class="timetable-buttons">
+                    <button class="timetable-btn active" data-day="monday">Monday</button>
+                    <button class="timetable-btn" data-day="tuesday">Tuesday</button>
+                    <button class="timetable-btn" data-day="wednesday">Wednesday</button>
+                    <button class="timetable-btn" data-day="thursday">Thursday</button>
+                    <button class="timetable-btn" data-day="friday">Friday</button>
+                </div>
+
+                <div id="timetableContent"></div>
+            </section>
+
+            <!-- CALENDAR SECTION -->
+            <section id="calendar">
+                <h2>Academic Calendar</h2>
+                <p>Stay updated with important dates and events</p>
+
+                <div class="calendar-container" id="calendarContainer"></div>
+            </section>
+
+            <!-- CAROUSEL SECTION (Image Gallery) -->
+            <section id="gallery">
+                <h2>Gallery & Announcements</h2>
+
+                <div class="carousel">
+                    <div class="carousel-slide">
+                        <div style="font-size: 48px; margin-right: 20px;">📸</div>
+                        <div>
+                            <h3>Advanced Computing Lab</h3>
+                            <p>Equipped with latest workstations and development tools</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div style="font-size: 48px; margin-right: 20px;">🏫</div>
+                        <div>
+                            <h3>Modern Classrooms</h3>
+                            <p>Interactive learning spaces with multimedia facilities</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div style="font-size: 48px; margin-right: 20px;">📚</div>
+                        <div>
+                            <h3>Resource Center</h3>
+                            <p>Comprehensive library with digital and physical resources</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div style="font-size: 48px; margin-right: 20px;">⚙️</div>
+                        <div>
+                            <h3>Testing & Development Lab</h3>
+                            <p>Specialized equipment for hands-on training</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="prevSlide()">← Previous</button>
+                    <button class="carousel-btn" onclick="nextSlide()">Next →</button>
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact">
+                <h2>Get In Touch</h2>
+                <p>Have questions? Contact us today!</p>
+
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="course">Interested Course *</label>
+                            <select id="course" name="course" required>
+                                <option value="">Select a course</option>
+                                <option value="building-construction">Building and Construction Technology</option>
+                                <option value="electrical">Electrical Engineering Technology</option>
+                                <option value="fashion">Fashion and Design Technology</option>
+                                <option value="catering">Catering and Hospitality Management</option>
+                                <option value="welding">Welding and Fabrication Technology</option>
+                                <option value="mechanical">Mechanical Engineering Technology</option>
+                                <option value="automobile">Automobile Engineering Technology</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+
+                <h3>Contact Information</h3>
+                <p><strong>📍 Address:</strong> Korlege Technical Institute, Tech Park, Innovation District</p>
+                <p><strong>📞 Phone:</strong> +1 (555) 123-4567</p>
+                <p><strong>📧 Email:</strong> info@korlege.edu</p>
+                <p><strong>🕐 Business Hours:</strong> Monday - Friday: 9:00 AM - 6:00 PM</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Korlege Technical Institute. All rights reserved.</p>
+        <p>Empowering the next generation of technical professionals.</p>
+    </footer>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
